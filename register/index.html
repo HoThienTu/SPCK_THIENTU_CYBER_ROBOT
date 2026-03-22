@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Neon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="register-box">
+  <h2>ĐĂNG KÍ</h2>
+
+  <form id="registerForm">
+    <div class="input-box">
+      <input type="text" id="regUser" required>
+      <label>Tên đăng nhập</label>
+    </div>
+
+    <div class="input-box">
+      <input type="email" id="regEmail" required>
+      <label>Email</label>
+    </div>
+
+    <div class="input-box">
+      <input type="password" id="regPass" required>
+      <label>Mật khẩu</label>
+    </div>
+
+    <div class="input-box">
+      <input type="password" id="regConfirm" required>
+      <label>Nhập lại mật khẩu</label>
+    </div>
+
+    <button type="submit" id="btnRegister">ĐĂNG KÍ</button>
+  </form>
+
+  <p>Đã có tài khoản? <a href="../login/index.html">Đăng nhập</a></p>
+</div>
+
+<script>
+  const registerForm = document.getElementById('registerForm');
+
+  registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('regUser').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPass').value;
+    const confirmPass = document.getElementById('regConfirm').value;
+a
+    // 1. Kiểm tra mật khẩu khớp
+    if (password !== confirmPass) {
+      alert("Mật khẩu nhập lại không khớp!");
+      return;
+    }
+
+    // 2. LẤY DANH SÁCH NGƯỜI DÙNG ĐÃ CÓ (nếu chưa có thì tạo mảng rỗng)
+    let userList = JSON.parse(localStorage.getItem('robotUsers')) || [];
+
+    // 3. Kiểm tra xem Email đã tồn tại chưa
+    const isExisted = userList.find(user => user.email === email);
+    if (isExisted) {
+      alert("Email này đã được đăng kí bởi người khác!");
+      return;
+    }
+
+    // 4. Thêm người dùng mới vào danh sách
+    const newUser = {
+      username: username,
+      email: email,
+      password: password
+    };
+    userList.push(newUser);
+
+    // 5. Lưu lại toàn bộ danh sách vào LocalStorage
+    localStorage.setItem('robotUsers', JSON.stringify(userList));
+
+    // 6. Lưu trạng thái "đã đăng nhập" cho người dùng hiện tại (để trang chủ biết là ai)
+    localStorage.setItem('currentUser', username);
+
+    alert("Đăng kí thành công! Chào mừng " + username);
+    
+    // Chuyển hướng về trang chủ Robot
+    window.location.href = "../index.html";
+  });
+</script>
+
+</body>
+</html>

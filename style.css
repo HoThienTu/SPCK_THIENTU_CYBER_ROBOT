@@ -1,0 +1,135 @@
+/* Thiết lập chung */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar-brand {
+    letter-spacing: 1px;
+}
+
+/* Hero Section - Banner */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+}
+
+/* Product Card - Hiệu ứng hover */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+
+.product-card img {
+    height: 200px;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Tiêu đề section */
+.h-line {
+    width: 60px;
+    height: 3px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+/* Nút bấm tùy chỉnh */
+.btn-info {
+    background-color: #00d4ff;
+    border: none;
+    color: #000;
+}
+
+.btn-info:hover {
+    background-color: #00a3cc;
+    color: #fff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 5px;
+}
+
+/* Tùy chỉnh thêm cho các nút trên Header */
+.nav-link.text-white:hover {
+    color: #00d4ff !important;
+    transition: 0.3s;
+}
+
+.btn-outline-info {
+    border-color: #00d4ff;
+    color: #00d4ff;
+}
+
+.btn-outline-info:hover {
+    background-color: #00d4ff;
+    color: #000;
+    border-color: #00d4ff;
+}
+
+/* Tùy chỉnh bảng giỏ hàng */
+.offcanvas {
+    width: 380px !important;
+}
+
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hiệu ứng cho nút xóa trong giỏ hàng */
+.btn-sm.text-danger:hover {
+    background-color: #fff0f0;
+    border-radius: 50%;
+}
+
+/* Modal sản phẩm */
+.modal-xl {
+    max-width: 90%;
+}
+
+.modal-content {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* --- PHẦN LIÊN HỆ & FORM (CODE MỚI THÊM) --- */
+.form-floating > .form-control:focus,
+.form-floating > .form-select:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 212, 255, 0.25);
+}
+
+.form-floating > label {
+    color: #6c757d;
+}
+
+.btn-contact-hover {
+    transition: all 0.3s ease;
+}
+.btn-contact-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}

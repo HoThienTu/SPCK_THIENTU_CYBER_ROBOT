@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Robot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="login-box">
+    <h2>ROBOT LOGIN</h2>
+    <!-- Thêm id cho form để xử lý Javascript -->
+    <form id="loginForm">
+        <div class="input-box">
+            <!-- Đổi type sang email và thêm id -->
+            <input type="email" id="email" required>
+            <label>Gmail</label>
+        </div>
+
+        <div class="input-box">
+            <!-- Thêm id -->
+            <input type="password" id="password" required>
+            <label>Mật khẩu</label>
+        </div>
+
+        <button type="submit">ĐĂNG NHẬP</button>
+    </form>
+</div>
+
+<script>
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(e) {
+        // Ngăn form load lại trang theo mặc định
+        e.preventDefault();
+
+        // Lấy giá trị từ các ô input
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Giả sử tài khoản đúng là: thientu25102011@gmail.com / mật khẩu: thientu2510
+        // Bạn có thể đổi tài khoản này tùy ý
+        const correctEmail = "thientu25102011@gmail.com";
+        const correctPassword = "thientu2510";
+
+        if (email === correctEmail && password === correctPassword) {
+            // 1. Lưu vào LocalStorage (lưu lại trên trình duyệt)
+            localStorage.setItem('robot_user_email', email);
+            localStorage.setItem('robot_user_pass', password);
+
+            alert("Đăng nhập thành công!");
+
+            // 2. Chuyển hướng về trang chủ robot (index.html ở thư mục gốc)
+            // Vì file này nằm trong thư mục login/ nên cần ../ để ra ngoài
+            window.location.href = "../index.html";
+        } else {
+            // Nếu sai tài khoản
+            alert("Gmail hoặc mật khẩu không chính xác. (Gợi ý: admin@gmail.com / 123456)");
+        }
+    });
+
+    // Tự động điền nếu đã lưu trước đó (Optional - tùy chọn)
+    window.onload = function() {
+        const savedEmail = localStorage.getItem('robot_user_email');
+        const savedPass = localStorage.getItem('robot_user_pass');
+        if(savedEmail && savedPass) {
+            document.getElementById('email').value = savedEmail;
+            document.getElementById('password').value = savedPass;
+        }
+    }
+</script>
+
+</body>
+</html>
