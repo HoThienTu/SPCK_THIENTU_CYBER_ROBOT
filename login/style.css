@@ -1,119 +1,220 @@
+:root {
+  --main-cyan: #00f2ff;
+  --main-blue: #0066ff;
+  --glass-white: rgba(255, 255, 255, 0.1);
+  --text-soft: #ccd6f6;
+  --bg-deep: #020c1b;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    background: #000;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-family: 'Quicksand', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-deep);
+  color: #fff;
+  overflow: hidden;
 }
 
-/* NỀN ĐÈN CHẠY */
-.background {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        #00f0ff,
-        #ff00ff,
-        #00ff6a,
-        #ffcc00,
-        #00f0ff
-    );
-    animation: glowMove 6s linear infinite;
-    filter: blur(120px);
+/* --- NỀN ROBOT (Đồng bộ với Register) --- */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
-@keyframes glowMove {
-    0% { transform: translate(-25%, -25%) rotate(0deg); }
-    100% { transform: translate(-25%, -25%) rotate(360deg); }
+.robot-bg {
+  width: 100%;
+  height: 100%;
+  /* Sử dụng một ảnh Robot khác một chút để phân biệt với trang đăng ký */
+  background: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+  filter: blur(8px) brightness(0.3);
+  animation: slowZoom 25s infinite alternate linear;
 }
 
-/* KHUNG LOGIN */
-.login-box {
-    position: relative;
-    width: 350px;
-    padding: 40px;
-    background: rgba(0,0,0,0.85);
-    border-radius: 15px;
-    box-shadow:
-        0 0 20px #00f0ff,
-        0 0 40px #ff00ff;
-    z-index: 1;
-    animation: pulse 2s infinite alternate;
+.overlay-grid {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--main-blue) 0.5px, transparent 0.5px);
+  background-size: 30px 30px;
+  opacity: 0.15;
 }
 
-@keyframes pulse {
-    from {
-        box-shadow: 0 0 20px #00f0ff;
-    }
-    to {
-        box-shadow: 0 0 40px #ff00ff;
-    }
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
 }
 
-.login-box h2 {
-    text-align: center;
-    color: #00f0ff;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+/* --- CARD ĐĂNG NHẬP (Siêu bo tròn) --- */
+.glass-card {
+  width: 420px;
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(25px);
+  padding: 50px 40px;
+  border-radius: 40px; 
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* INPUT */
-.input-box {
-    position: relative;
-    margin-bottom: 30px;
+.header {
+  text-align: center;
+  margin-bottom: 35px;
 }
 
-.input-box input {
-    width: 100%;
-    padding: 10px;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #00f0ff;
-    color: #fff;
-    font-size: 16px;
-    outline: none;
+.robot-icon {
+  font-size: 45px;
+  color: var(--main-cyan);
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 15px var(--main-cyan));
 }
 
-.input-box label {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    color: #aaa;
-    transform: translateY(-50%);
-    pointer-events: none;
-    transition: 0.4s;
+.header h2 {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 3px;
+  font-size: 24px;
+  color: #fff;
 }
 
-.input-box input:focus + label,
-.input-box input:valid + label {
-    top: -8px;
-    color: #ff00ff;
-    font-size: 12px;
+.header p {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-top: 8px;
+  letter-spacing: 0.5px;
 }
 
-/* NÚT */
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    background: linear-gradient(90deg, #00f0ff, #ff00ff);
-    color: #000;
-    font-weight: bold;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: 0.3s;
+/* --- FORM GROUP --- */
+.form-group {
+  margin-bottom: 22px;
 }
 
-button:hover {
-    box-shadow: 0 0 20px #00f0ff, 0 0 40px #ff00ff;
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 18px;
+  margin-bottom: 8px;
+  color: var(--main-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper i {
+  position: absolute;
+  left: 20px;
+  color: var(--text-soft);
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 15px 20px 15px 55px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px; /* Bo tròn hoàn toàn */
+  color: #fff;
+  font-size: 15px;
+  transition: 0.3s;
+  outline: none;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--main-cyan);
+  background: rgba(0, 242, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+}
+
+.input-wrapper input:focus + i {
+  color: var(--main-cyan);
+}
+
+/* Options (Ghi nhớ & Quên mật khẩu) */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 25px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.options a {
+  color: var(--main-cyan);
+  text-decoration: none;
+}
+
+/* --- NÚT ĐĂNG NHẬP --- */
+.btn-login {
+  width: 100%;
+  padding: 16px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(90deg, var(--main-blue), var(--main-cyan));
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.4s;
+  box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 242, 255, 0.4);
+  filter: brightness(1.1);
+}
+
+/* --- FOOTER --- */
+.footer-links {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.footer-links p {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.footer-links a {
+  color: var(--main-cyan);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-links a:hover {
+  text-shadow: 0 0 10px var(--main-cyan);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .glass-card {
+    width: 92%;
+    padding: 40px 25px;
+  }
+}

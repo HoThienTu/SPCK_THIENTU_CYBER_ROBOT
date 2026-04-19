@@ -18,31 +18,54 @@
         <a class="navbar-brand fw-bold text-uppercase" href="index.html">
             <i class="fa-solid fa-robot text-info"></i> PrimeRobotics
         </a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#productModal">Sản phẩm</a></li>
                 <li class="nav-item"><a class="nav-link" href="#features">Dịch vụ</a></li>
-                <!-- Đã sửa href="#" thành href="#contact" -->
                 <li class="nav-item"><a class="nav-link" href="#contact">Liên hệ</a></li>
             </ul>
 
             <div class="ms-lg-3 d-flex align-items-center mt-3 mt-lg-0">
-                <a href="login/index.html" class="nav-link text-white me-3 px-2">Đăng nhập</a>
-                <a href="register/index.html" class="btn btn-outline-info btn-sm me-3 fw-bold px-3">Đăng ký</a>
+                
+                <!-- VÙNG 1: HIỂN THỊ KHI CHƯA ĐĂNG NHẬP -->
+                <div id="guest-zone" class="d-flex align-items-center">
+                    <a href="login/index.html" class="nav-link text-white me-3 px-2">Đăng nhập</a>
+                    <a href="register/index.html" class="btn btn-outline-info btn-sm me-3 fw-bold px-3">Đăng ký</a>
+                </div>
+
+                <!-- VÙNG 2: HIỂN THỊ KHI ĐÃ ĐĂNG NHẬP (Mặc định ẩn d-none) -->
+                <div id="user-zone" class="d-none align-items-center me-3">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-info dropdown-toggle btn-sm fw-bold px-3" type="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user-astronaut me-1"></i> 
+                            <span id="display-user-name" style="text-shadow: 0 0 8px cyan;">Tên tài khoản</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-id-card me-2"></i>Hồ sơ Robot</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-box-open me-2"></i>Đơn hàng AI</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logout()">
+                                <i class="fa-solid fa-power-off me-2"></i>Đăng xuất
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nút Giỏ hàng -->
                 <button class="btn btn-info position-relative btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <!-- Số lượng trên icon giỏ hàng -->
                     <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                 </button>
             </div>
         </div>
     </div>
 </nav>
-
 <!-- Hero Section -->
 <header class="hero-section text-center text-white d-flex align-items-center justify-content-center">
     <div class="container">
@@ -374,6 +397,129 @@
         <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
     </button>
 </div>
+</script>
+
+<script>
+    // Hàm kiểm tra trạng thái đăng nhập khi vừa mở trang
+    window.addEventListener('load', function() {
+        checkLoginStatus();
+        renderCart(); // Gọi lại hàm giỏ hàng của bạn
+    });
+
+    function checkLoginStatus() {
+        const authButtons = document.getElementById('auth-buttons');
+        const userLogged = document.getElementById('user-logged');
+        const displayName = document.getElementById('display-user-name');
+        
+        // Lấy tên người dùng từ LocalStorage
+        const currentUser = localStorage.getItem('currentUser');
+
+        if (currentUser) {
+            // Nếu đã đăng nhập: hiện tên, ẩn nút đăng ký
+            authButtons.classList.add('d-none');
+            userLogged.classList.remove('d-none');
+            userLogged.classList.add('d-flex');
+            displayName.innerText = currentUser;
+        } else {
+            // Nếu chưa đăng nhập: hiện nút đăng ký, ẩn tên
+            authButtons.classList.remove('d-none');
+            userLogged.classList.add('d-none');
+            userLogged.classList.remove('d-flex');
+        }
+    }
+
+    // Hàm đăng xuất
+    function logout() {
+        if(confirm("Bạn có chắc chắn muốn đăng xuất hệ thống Robot?")) {
+            localStorage.removeItem('currentUser'); // Xóa tên người dùng
+            window.location.reload(); // Load lại trang để cập nhật giao diện
+        }
+    }
+
+    // --- GIỮ NGUYÊN CÁC HÀM addToCart, renderCart CỦA BẠN Ở ĐÂY ---
+</script>
+<script>
+    // --- KHAI BÁO BIẾN GIỎ HÀNG ---
+    let cart = [];
+
+    // --- KHI TRANG LOAD XONG ---
+    window.addEventListener('load', function() {
+        checkLoginStatus(); // Kiểm tra ai đang đăng nhập
+        renderCart();      // Vẽ lại giỏ hàng
+    });
+
+    // --- HÀM KIỂM TRA ĐĂNG NHẬP ---
+    function checkLoginStatus() {
+        const guestZone = document.getElementById('guest-zone');
+        const userZone = document.getElementById('user-zone');
+        const displayName = document.getElementById('display-user-name');
+        
+        const currentUser = localStorage.getItem('currentUser');
+
+        if (currentUser) {
+            // Đã đăng nhập
+            guestZone.classList.replace('d-flex', 'd-none'); // Ẩn nút đăng nhập
+            userZone.classList.replace('d-none', 'd-flex');  // Hiện tên tài khoản
+            displayName.innerText = currentUser.toUpperCase(); // Hiển thị tên in hoa
+        } else {
+            // Chưa đăng nhập
+            guestZone.classList.replace('d-none', 'd-flex');
+            userZone.classList.replace('d-flex', 'd-none');
+        }
+    }
+
+    // --- HÀM ĐĂNG XUẤT ---
+    function logout() {
+        if(confirm("Xác nhận ngắt kết nối hệ thống Robot?")) {
+            localStorage.removeItem('currentUser');
+            window.location.reload(); 
+        }
+    }
+
+    // --- CÁC HÀM GIỎ HÀNG (GIỮ NGUYÊN LOGIC CỦA BẠN) ---
+    function addToCart(name, price, image) {
+        cart.push({ name, price, image });
+        renderCart();
+        alert("Đã thêm " + name + " vào giỏ hàng!");
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartListElement = document.getElementById('cart-items-list');
+        const totalPriceElement = document.getElementById('cart-total-price');
+        const badgeElement = document.getElementById('cart-count-badge');
+
+        if (cart.length === 0) {
+            cartListElement.innerHTML = '<p class="text-muted text-center mt-5">Giỏ hàng trống</p>';
+            totalPriceElement.innerText = '0đ';
+            badgeElement.innerText = '0';
+            return;
+        }
+
+        let html = '';
+        let total = 0;
+        cart.forEach((item, index) => {
+            total += item.price;
+            html += `
+                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+                    <img src="${item.image}" class="img-thumbnail me-3" style="width: 50px; height: 50px; object-fit: contain;">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0 fw-bold small">${item.name}</h6>
+                        <span class="text-primary small fw-bold">${item.price.toLocaleString()}đ</span>
+                    </div>
+                    <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>`;
+        });
+        cartListElement.innerHTML = html;
+        totalPriceElement.innerText = total.toLocaleString() + 'đ';
+        badgeElement.innerText = cart.length;
+    }
 </script>
 </body>
 </html>
