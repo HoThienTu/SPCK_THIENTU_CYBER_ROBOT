@@ -354,6 +354,26 @@
         // Cập nhật số lượng trên badge icon giỏ hàng
         badgeElement.innerText = cart.length;
     }
+    <div class="ms-lg-3 d-flex align-items-center mt-3 mt-lg-0">
+    <!-- Dropdown Tài khoản (Thay thế nút Login/Register cũ) -->
+    <div class="dropdown me-3">
+        <button class="btn btn-outline-info dropdown-toggle btn-sm fw-bold px-3" type="button" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-user-gear me-1"></i> TÀI KHOẢN
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+            <li><a class="dropdown-item" href="profile/user.html"><i class="fa-solid fa-user me-2"></i>Trang cá nhân</a></li>
+            <li><a class="dropdown-item" href="profile/admin.html"><i class="fa-solid fa-lock me-2"></i>Trang quản trị</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
+        </ul>
+    </div>
+
+    <!-- Nút Giỏ hàng giữ nguyên -->
+    <button class="btn btn-info position-relative btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+    </button>
+</div>
 </script>
 </body>
 </html>
