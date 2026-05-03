@@ -10,8 +10,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- CSS SỬA LỖI HIỂN THỊ TÊN KHI HOVER --- */
+        #display-user-name {
+            font-weight: bold;
+            color: #00d4ff; /* Màu mặc định là xanh Cyan */
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        /* Khi di chuột vào nút (hover), đổi màu chữ thành màu đen để không bị trùng màu nền xanh */
+        .dropdown > .btn-outline-info:hover #display-user-name {
+            color: #000 !important; 
+        }
+
+        /* Tùy chỉnh Menu Dropdown */
+        .dropdown-menu {
+            border-radius: 12px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            margin-top: 10px !important;
+        }
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #00d4ff;
+        }
+        .dropdown-divider {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
+
 <!-- Navbar (Menu) -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
@@ -39,16 +75,20 @@
                     <a href="register/index.html" class="btn btn-outline-info btn-sm me-3 fw-bold px-3">Đăng ký</a>
                 </div>
 
-                <!-- VÙNG 2: HIỂN THỊ KHI ĐÃ ĐĂNG NHẬP (Mặc định ẩn d-none) -->
+                <!-- VÙNG 2: HIỂN THỊ KHI ĐÃ ĐĂNG NHẬP -->
                 <div id="user-zone" class="d-none align-items-center me-3">
                     <div class="dropdown">
-                        <button class="btn btn-outline-info dropdown-toggle btn-sm fw-bold px-3" type="button" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-user-astronaut me-1"></i> 
-                            <span id="display-user-name" style="text-shadow: 0 0 8px cyan;">Tên tài khoản</span>
+                        <button class="btn btn-outline-info dropdown-toggle btn-sm fw-bold px-3 d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-user-astronaut me-2"></i> 
+                            <span id="display-user-name">Tài khoản</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-id-card me-2"></i>Hồ sơ Robot</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-box-open me-2"></i>Đơn hàng AI</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                            <li><a class="dropdown-item" href="profile/user.html"><i class="fa-solid fa-id-card me-2"></i>Hồ sơ cá nhân</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-box-open me-2"></i>Đơn hàng</a></li>
+                            
+                            <!-- Hiện nếu là admin -->
+                            <li id="admin-link" class="d-none"><a class="dropdown-item" href="profile/admin.html"><i class="fa-solid fa-user-shield me-2"></i>Trang Quản Trị</a></li>
+                            
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logout()">
                                 <i class="fa-solid fa-power-off me-2"></i>Đăng xuất
@@ -66,6 +106,7 @@
         </div>
     </div>
 </nav>
+
 <!-- Hero Section -->
 <header class="hero-section text-center text-white d-flex align-items-center justify-content-center">
     <div class="container">
@@ -83,7 +124,7 @@
         <div class="col-md-10">
             <div class="card p-4 shadow-sm border-0 bg-light text-center">
                 <h3 class="fw-bold mb-3 text-dark">Chào mừng đến với PrimeRobotics</h3>
-                <p class="text-muted">Chúng tôi cung cấp những giải pháp công nghệ hiện đại nhất để thay đổi cuộc sống của bạn. Hãy thoải mái khám phá bộ sản phẩm của chúng tôi.</p>
+                <p class="text-muted">Chúng tôi cung cấp những giải pháp công nghệ hiện đại nhất để thay đổi cuộc sống của bạn.</p>
             </div>
         </div>
     </div>
@@ -117,7 +158,7 @@
     </div>
 </section>
 
-<!-- CONTACT SECTION (MỚI THÊM VÀO) -->
+<!-- CONTACT SECTION -->
 <section id="contact" class="py-5 bg-white">
     <div class="container">
         <div class="text-center mb-5">
@@ -128,71 +169,28 @@
         </div>
 
         <div class="row g-5">
-            <!-- Cột trái: Mô tả dịch vụ & Thông tin liên hệ -->
             <div class="col-lg-6">
-                <div class="h-100">
-                    <h4 class="fw-bold mb-3"><i class="fa-solid fa-circle-info text-info me-2"></i>THÔNG TIN </h4>
-                    <p class="text-muted text-justify" style="line-height: 1.8;">
-                        PrimeRobotics là nền tảng trực tuyến hàng đầu cung cấp các dòng Robot thông minh đa dụng. 
-                        Dịch vụ của chúng tôi bao gồm tư vấn giải pháp tự động hóa cho gia đình , 
-                        cung cấp Robot giáo dục STEM cho trẻ em và các dòng Robot phục vụ giải trí cao cấp. 
-                        Chúng tôi cam kết mang đến trải nghiệm mua sắm tiện lợi, bảo hành tận nơi và hỗ trợ kỹ thuật trọn đời.
-                    </p>
-                    
-                    <h5 class="fw-bold mt-4 mb-3"><i class="fa-solid fa-location-dot text-info me-2"></i>Thông tin liên hệ</h5>
-                    <ul class="list-unstyled text-secondary">
-                        <li class="mb-3"><i class="fa-solid fa-phone me-2 text-dark"></i>Hotline: 0917160061</li>
-                        <li class="mb-3"><i class="fa-solid fa-envelope me-2 text-dark"></i>Email: thientu25102011@gmail.com</li>
-                        <li><i class="fa-solid fa-clock me-2 text-dark"></i>10:00 - 12:00 (Chủ Nhật)</li>
-                    </ul>
-                </div>
+                <h4 class="fw-bold mb-3"><i class="fa-solid fa-circle-info text-info me-2"></i>THÔNG TIN</h4>
+                <p class="text-muted" style="line-height: 1.8;">
+                    PrimeRobotics là nền tảng trực tuyến hàng đầu cung cấp các dòng Robot thông minh đa dụng. 
+                </p>
+                <ul class="list-unstyled text-secondary mt-4">
+                    <li class="mb-3"><i class="fa-solid fa-phone me-2 text-dark"></i>Hotline: 0917160061</li>
+                    <li class="mb-3"><i class="fa-solid fa-envelope me-2 text-dark"></i>Email: thientu25102011@gmail.com</li>
+                </ul>
             </div>
 
-            <!-- Cột phải: Form điền thông tin & Khiếu nại -->
             <div class="col-lg-6">
-                <div class="card shadow-lg border-0 rounded-4">
-                    <div class="card-body p-4">
-                        <h4 class="fw-bold mb-4 text-center">Gửi phản hồi / Khiếu nại</h4>
-                        <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã góp ý!');">
-                            <!-- Thông tin khách -->
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control rounded-3" id="floatingName" placeholder="Họ và tên" required>
-                                        <label for="floatingName">Họ Và Tên</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input type="email" class="form-control rounded-3" id="floatingEmail" placeholder="Email/SĐT" required>
-                                        <label for="floatingEmail">Email Hoặc SĐT</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Loại yêu cầu -->
-                            <div class="form-floating mb-3">
-                                <select class="form-select rounded-3" id="floatingSelect">
-                                    <option selected>Tư vấn sản phẩm mới</option>
-                                    <option value="1">Hỗ trợ kỹ thuật / Bảo hành</option>
-                                    <option value="2">Khiếu nại sản phẩm/dịch vụ</option>
-                                    <option value="3">Góp ý cải thiện các robot</option>
-                                </select>
-                                <label for="floatingSelect">Bạn cần chúng tôi hỗ trợ những gì?</label>
-                            </div>
-
-                            <!-- Ô khiếu nại / Nội dung -->
-                            <div class="form-floating mb-4">
-                                <textarea class="form-control rounded-3" placeholder="Nội dung" id="floatingTextarea" style="height: 120px"></textarea>
-                                <label for="floatingTextarea">Chi tiết nội dung / Khiếu nại</label>
-                            </div>
-
-                            <!-- Nút gửi -->
-                            <button type="submit" class="btn btn-info w-100 fw-bold rounded-pill py-3 text-dark btn-contact-hover">
-                                <i class="fa-solid fa-paper-plane me-2"></i>GỬI THÔNG TIN
-                            </button>
-                        </form>
-                    </div>
+                <div class="card shadow-lg border-0 rounded-4 p-4">
+                    <h4 class="fw-bold mb-4 text-center">Gửi phản hồi</h4>
+                    <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã góp ý!');">
+                        <div class="row g-3">
+                            <div class="col-md-6"><input type="text" class="form-control" placeholder="Họ và tên" required></div>
+                            <div class="col-md-6"><input type="email" class="form-control" placeholder="Email/SĐT" required></div>
+                        </div>
+                        <textarea class="form-control my-3" placeholder="Nội dung" style="height: 100px"></textarea>
+                        <button type="submit" class="btn btn-info w-100 fw-bold rounded-pill">GỬI THÔNG TIN</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -201,32 +199,17 @@
 
 <!-- Footer -->
 <footer class="bg-black text-white py-4 mt-auto">
-    <div class="container text-center text-md-start">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <h5 class="text-uppercase text-info">PrimeRobotics</h5>
-                <p>Kho sản phẩm đa dạng từ robot dọn nhà, học tập đến giải trí.</p>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h5 class="text-uppercase text-info small">Liên kết</h5>
-                <ul class="list-unstyled small">
-                    <li><a href="#" class="text-white-50 text-decoration-none">Chính sách bảo hành</a></li>
-                    <li><a href="#" class="text-white-50 text-decoration-none">Kết Nối Công Nghệ</a></li>
-                    <li><a href="#" class="text-white-50 text-decoration-none">Truy Cập Nhanh</a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="border-secondary">
-        <div class="text-center small">&copy; Prime Robotics – Kết nối công nghệ, dẫn lối tương lai..</div>
+    <div class="container text-center">
+        <div class="small">&copy; Prime Robotics – Kết nối công nghệ, dẫn lối tương lai.</div>
     </div>
 </footer>
 
-<!-- MODAL: DANH SÁCH 10 ROBOT -->
-<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+<!-- MODAL: DANH SÁCH ROBOT -->
+<div class="modal fade" id="productModal" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content border-0">
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title fw-bold"><i class="fa-solid fa-store me-2 text-info"></i>DANH SÁCH ROBOT</h5>
+                <h5 class="modal-title fw-bold">DANH SÁCH ROBOT</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body bg-light">
@@ -235,9 +218,9 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="card product-card h-100 border-0 shadow-sm text-center p-3">
                             <img src="./z7325101041384_4bfa4537d4a87a237099cbc2e455a3bf.jpg" class="card-img-top mx-auto" style="height: 120px; object-fit: contain;">
-                            <div class="card-body px-1">
-                                <h6 class="fw-bold small">Robot AI Gen 2</h6>
-                                <p class="text-primary fw-bold mb-2">150.000.000đ</p>
+                            <div class="card-body">
+                                <h6 class="fw-bold">Robot AI Gen 2</h6>
+                                <p class="text-primary fw-bold">150.000.000đ</p>
                                 <button class="btn btn-dark btn-sm w-100 rounded-pill" onclick="addToCart('Robot AI Gen 2', 150000000, './z7325101041384_4bfa4537d4a87a237099cbc2e455a3bf.jpg')">Thêm vào giỏ</button>
                             </div>
                         </div>
@@ -246,40 +229,14 @@
                     <div class="col-md-4 col-lg-3">
                         <div class="card product-card h-100 border-0 shadow-sm text-center p-3">
                             <img src="./z7325109396184_2dcbcc9e6fc8aeb3864ab29d965bfc41.jpg" class="card-img-top mx-auto" style="height: 120px; object-fit: contain;">
-                            <div class="card-body px-1">
-                                <h6 class="fw-bold small">Robot Hút Bụi X1</h6>
-                                <p class="text-primary fw-bold mb-2">25.500.000đ</p>
-                                <button class="btn btn-dark btn-sm w-100 rounded-pill" onclick="addToCart('Robot Hút Bụi X1', 15500000, './z7325109396184_2dcbcc9e6fc8aeb3864ab29d965bfc41.jpg')">Thêm vào giỏ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Robot 3 -->
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card product-card h-100 border-0 shadow-sm text-center p-3">
-                            <img src="./z7325128322884_93c97c075abc4601b44fa708487c7a24.jpg" class="card-img-top mx-auto" style="height: 120px; object-fit: contain;">
-                            <div class="card-body px-1">
-                                <h6 class="fw-bold small">Robot Alpha Pro</h6>
-                                <p class="text-primary fw-bold mb-2">650.000.000đ</p>
-                                <button class="btn btn-dark btn-sm w-100 rounded-pill" onclick="addToCart('Robot Alpha Pro', 25000000, './z7325128322884_93c97c075abc4601b44fa708487c7a24.jpg')">Thêm vào giỏ</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Robot 4 -->
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card product-card h-100 border-0 shadow-sm text-center p-3">
-                            <img src="./z7393599806795_7542c4627d424b641c7a98f03ddbc08d-removebg-preview.png" class="card-img-top mx-auto" style="height: 120px; object-fit: contain;">
-                            <div class="card-body px-1">
-                                <h6 class="fw-bold small">Robot Trợ Lý Mini</h6>
-                                <p class="text-primary fw-bold mb-2">1.700.000.000đ</p>
-                                <button class="btn btn-dark btn-sm w-100 rounded-pill" onclick="addToCart('Robot Trợ Lý Mini', 5000000, './z7325101041384_4bfa4537d4a87a237099cbc2e455a3bf.jpg')">Thêm vào giỏ</button>
+                            <div class="card-body">
+                                <h6 class="fw-bold">Robot Hút Bụi X1</h6>
+                                <p class="text-primary fw-bold">25.500.000đ</p>
+                                <button class="btn btn-dark btn-sm w-100 rounded-pill" onclick="addToCart('Robot Hút Bụi X1', 25500000, './z7325109396184_2dcbcc9e6fc8aeb3864ab29d965bfc41.jpg')">Thêm vào giỏ</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-info rounded-pill fw-bold" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">XEM GIỎ HÀNG</button>
             </div>
         </div>
     </div>
@@ -288,199 +245,72 @@
 <!-- OFFCANVAS: GIỎ HÀNG -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart">
     <div class="offcanvas-header border-bottom">
-        <h5 class="offcanvas-title fw-bold"><i class="fa-solid fa-cart-shopping me-2 text-info"></i>GIỎ HÀNG</h5>
+        <h5 class="offcanvas-title fw-bold">GIỎ HÀNG</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
-        <!-- Vùng hiển thị danh sách robot đã thêm -->
         <div id="cart-items-list">
             <p class="text-muted text-center mt-5">Giỏ hàng trống</p>
         </div>
-
-        <!-- Vùng tổng tiền -->
         <div class="mt-auto border-top pt-3">
-            <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
-                <span>TỔNG TIỀN :</span>
+            <div class="d-flex justify-content-between fw-bold mb-3">
+                <span>TỔNG TIỀN:</span>
                 <span id="cart-total-price" class="text-danger">0đ</span>
             </div>
-            <button class="btn btn-dark w-100 py-2 rounded-pill fw-bold">THANH TOÁN</button>
+            <button class="btn btn-dark w-100 rounded-pill fw-bold">THANH TOÁN</button>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS Bundle -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- JAVASCRIPT XỬ LÝ GIỎ HÀNG -->
 <script>
-    // Mảng chứa các sản phẩm trong giỏ hàng
     let cart = [];
 
-    // Hàm thêm sản phẩm vào giỏ
-    function addToCart(name, price, image) {
-        // Tạo đối tượng sản phẩm mới
-        const product = { name, price, image };
-        // Thêm vào mảng
-        cart.push(product);
-        // Cập nhật giao diện
-        renderCart();
-        // Thông báo (tùy chọn)
-        alert("Đã thêm " + name + " vào giỏ hàng!");
-    }
-
-    // Hàm xóa sản phẩm khỏi giỏ theo vị trí (index)
-    function removeFromCart(index) {
-        // Xóa 1 phần tử tại vị trí index
-        cart.splice(index, 1);
-        // Cập nhật lại giao diện
-        renderCart();
-    }
-
-    // Hàm vẽ lại toàn bộ giao diện giỏ hàng
-    function renderCart() {
-        const cartListElement = document.getElementById('cart-items-list');
-        const totalPriceElement = document.getElementById('cart-total-price');
-        const badgeElement = document.getElementById('cart-count-badge');
-
-        // Nếu giỏ hàng trống
-        if (cart.length === 0) {
-            cartListElement.innerHTML = '<p class="text-muted text-center mt-5">Giỏ hàng trống</p>';
-            totalPriceElement.innerText = '0đ';
-            badgeElement.innerText = '0';
-            return;
-        }
-
-        // Nếu có hàng, duyệt mảng và tạo HTML
-        let html = '';
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            total += item.price;
-            html += `
-                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img src="${item.image}" class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: contain;">
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0 fw-bold small">${item.name}</h6>
-                        <span class="text-primary small fw-bold">${item.price.toLocaleString()}đ</span>
-                    </div>
-                    <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-            `;
-        });
-
-        // Ghi HTML vào vùng danh sách
-        cartListElement.innerHTML = html;
-        // Cập nhật tổng tiền
-        totalPriceElement.innerText = total.toLocaleString() + 'đ';
-        // Cập nhật số lượng trên badge icon giỏ hàng
-        badgeElement.innerText = cart.length;
-    }
-    <div class="ms-lg-3 d-flex align-items-center mt-3 mt-lg-0">
-    <!-- Dropdown Tài khoản (Thay thế nút Login/Register cũ) -->
-    <div class="dropdown me-3">
-        <button class="btn btn-outline-info dropdown-toggle btn-sm fw-bold px-3" type="button" data-bs-toggle="dropdown">
-            <i class="fa-solid fa-user-gear me-1"></i> TÀI KHOẢN
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-            <li><a class="dropdown-item" href="profile/user.html"><i class="fa-solid fa-user me-2"></i>Trang cá nhân</a></li>
-            <li><a class="dropdown-item" href="profile/admin.html"><i class="fa-solid fa-lock me-2"></i>Trang quản trị</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
-        </ul>
-    </div>
-
-    <!-- Nút Giỏ hàng giữ nguyên -->
-    <button class="btn btn-info position-relative btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-    </button>
-</div>
-</script>
-
-<script>
-    // Hàm kiểm tra trạng thái đăng nhập khi vừa mở trang
     window.addEventListener('load', function() {
         checkLoginStatus();
-        renderCart(); // Gọi lại hàm giỏ hàng của bạn
+        renderCart();
     });
 
-    function checkLoginStatus() {
-        const authButtons = document.getElementById('auth-buttons');
-        const userLogged = document.getElementById('user-logged');
-        const displayName = document.getElementById('display-user-name');
-        
-        // Lấy tên người dùng từ LocalStorage
-        const currentUser = localStorage.getItem('currentUser');
-
-        if (currentUser) {
-            // Nếu đã đăng nhập: hiện tên, ẩn nút đăng ký
-            authButtons.classList.add('d-none');
-            userLogged.classList.remove('d-none');
-            userLogged.classList.add('d-flex');
-            displayName.innerText = currentUser;
-        } else {
-            // Nếu chưa đăng nhập: hiện nút đăng ký, ẩn tên
-            authButtons.classList.remove('d-none');
-            userLogged.classList.add('d-none');
-            userLogged.classList.remove('d-flex');
-        }
-    }
-
-    // Hàm đăng xuất
-    function logout() {
-        if(confirm("Bạn có chắc chắn muốn đăng xuất hệ thống Robot?")) {
-            localStorage.removeItem('currentUser'); // Xóa tên người dùng
-            window.location.reload(); // Load lại trang để cập nhật giao diện
-        }
-    }
-
-    // --- GIỮ NGUYÊN CÁC HÀM addToCart, renderCart CỦA BẠN Ở ĐÂY ---
-</script>
-<script>
-    // --- KHAI BÁO BIẾN GIỎ HÀNG ---
-    let cart = [];
-
-    // --- KHI TRANG LOAD XONG ---
-    window.addEventListener('load', function() {
-        checkLoginStatus(); // Kiểm tra ai đang đăng nhập
-        renderCart();      // Vẽ lại giỏ hàng
-    });
-
-    // --- HÀM KIỂM TRA ĐĂNG NHẬP ---
     function checkLoginStatus() {
         const guestZone = document.getElementById('guest-zone');
         const userZone = document.getElementById('user-zone');
         const displayName = document.getElementById('display-user-name');
+        const adminLink = document.getElementById('admin-link');
         
         const currentUser = localStorage.getItem('currentUser');
 
         if (currentUser) {
-            // Đã đăng nhập
-            guestZone.classList.replace('d-flex', 'd-none'); // Ẩn nút đăng nhập
-            userZone.classList.replace('d-none', 'd-flex');  // Hiện tên tài khoản
-            displayName.innerText = currentUser.toUpperCase(); // Hiển thị tên in hoa
+            guestZone.classList.add('d-none');
+            guestZone.classList.remove('d-flex');
+            
+            userZone.classList.add('d-flex');
+            userZone.classList.remove('d-none');
+            
+            displayName.innerText = currentUser.toUpperCase();
+
+            if (currentUser.toLowerCase() === "admin") {
+                adminLink.classList.remove('d-none');
+            }
         } else {
-            // Chưa đăng nhập
-            guestZone.classList.replace('d-none', 'd-flex');
-            userZone.classList.replace('d-flex', 'd-none');
+            guestZone.classList.add('d-flex');
+            guestZone.classList.remove('d-none');
+            userZone.classList.add('d-none');
         }
     }
 
-    // --- HÀM ĐĂNG XUẤT ---
     function logout() {
-        if(confirm("Xác nhận ngắt kết nối hệ thống Robot?")) {
+        if(confirm("Xác nhận đăng xuất?")) {
             localStorage.removeItem('currentUser');
-            window.location.reload(); 
+            window.location.reload();
         }
     }
 
-    // --- CÁC HÀM GIỎ HÀNG (GIỮ NGUYÊN LOGIC CỦA BẠN) ---
     function addToCart(name, price, image) {
         cart.push({ name, price, image });
         renderCart();
-        alert("Đã thêm " + name + " vào giỏ hàng!");
+        alert("Đã thêm " + name + " vào giỏ!");
     }
 
     function removeFromCart(index) {
@@ -505,11 +335,11 @@
         cart.forEach((item, index) => {
             total += item.price;
             html += `
-                <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
-                    <img src="${item.image}" class="img-thumbnail me-3" style="width: 50px; height: 50px; object-fit: contain;">
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0 fw-bold small">${item.name}</h6>
-                        <span class="text-primary small fw-bold">${item.price.toLocaleString()}đ</span>
+                <div class="d-flex align-items-center mb-3 pb-2 border-bottom">
+                    <img src="${item.image}" style="width: 40px; height: 40px; object-fit: contain;" class="me-2">
+                    <div class="flex-grow-1 small">
+                        <div class="fw-bold">${item.name}</div>
+                        <div class="text-primary">${item.price.toLocaleString()}đ</div>
                     </div>
                     <button class="btn btn-sm text-danger" onclick="removeFromCart(${index})">
                         <i class="fa-solid fa-trash"></i>
