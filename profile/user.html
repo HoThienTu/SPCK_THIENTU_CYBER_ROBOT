@@ -3,100 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài khoản - PrimeRobotics</title>
+    <title>Hồ sơ Robot - PrimeRobotics</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS từ trang chủ -->
     <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            background: #0b0d17; /* Nền tối đậm chất công nghệ */
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Hiệu ứng kính mờ (Glassmorphism) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .profile-sidebar {
+            padding: 30px 20px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            object-fit: cover;
+        }
+
+        .nav-pills .nav-link {
+            color: #ccc;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-pills .nav-link:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .nav-pills .nav-link.active {
+            background: #00d4ff !important;
+            color: #000 !important;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Form styling */
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d4ff;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .form-label {
+            color: #00d4ff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Order Card */
+        .order-card {
+            border-left: 4px solid #00d4ff;
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .order-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .stat-box h3 {
+            color: #00d4ff;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+        
+        .stat-box span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <!-- Navbar (Copy từ index.html nhưng sửa link) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="../index.html"><i class="fa-solid fa-robot text-info"></i> PrimeRobotics</a>
+            <a class="navbar-brand fw-bold text-uppercase" href="../index.html">
+                <i class="fa-solid fa-robot text-info"></i> PrimeRobotics
+            </a>
+            <div class="ms-auto">
+                <a href="../index.html" class="btn btn-outline-info btn-sm rounded-pill px-4">
+                    <i class="fa-solid fa-house me-1"></i> Quay lại cửa hàng
+                </a>
+            </div>
         </div>
     </nav>
 
     <div class="container my-5">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-lg-3 mb-4">
-                <div class="profile-sidebar text-center">
-                    <img src="https://ui-avatars.com/api/?name=User&background=00d4ff&color=fff" alt="Avatar" class="profile-avatar mb-3">
-                    <h5 class="fw-bold">Nguyễn Văn A</h5>
-                    <p class="text-muted small">Thành viên Bạc</p>
-                    <hr>
-                    <div class="nav flex-column nav-pills text-start" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#info"><i class="fa-solid fa-user me-2"></i> Thông tin</button>
-                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#orders"><i class="fa-solid fa-box me-2"></i> Đơn hàng</button>
-                        <a href="../index.html" class="nav-link text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất</a>
+            <!-- SIDEBAR -->
+            <div class="col-lg-4 col-xl-3 mb-4">
+                <div class="glass-card profile-sidebar text-center">
+                    <!-- Ảnh đại diện phong cách phi hành gia -->
+                    <div class="position-relative d-inline-block">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Avatar" class="profile-avatar mb-3">
+                        <span class="position-absolute bottom-0 end-0 bg-success border border-dark rounded-circle p-2"></span>
+                    </div>
+                    
+                    <h4 class="fw-bold mb-1" id="profile-name">Người dùng</h4>
+                    <p class="text-info small mb-4 fw-bold text-uppercase">Thành viên cao cấp AI</p>
+
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <h3>12</h3>
+                                <span>Robot mua</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <h3>VIP</h3>
+                                <span>Cấp độ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav flex-column nav-pills text-start" id="v-pills-tab" role="tablist">
+                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#info">
+                            <i class="fa-solid fa-user-gear me-2"></i> THÔNG TIN CÁ NHÂN
+                        </button>
+                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#orders">
+                            <i class="fa-solid fa-receipt me-2"></i> LỊCH SỬ ĐƠN HÀNG
+                        </a>
+                        <button class="nav-link text-danger mt-3" onclick="logoutProfile()">
+                            <i class="fa-solid fa-power-off me-2"></i> ĐĂNG XUẤT
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Content -->
-            <div class="col-lg-9">
+            <!-- MAIN CONTENT -->
+            <div class="col-lg-8 col-xl-9">
                 <div class="tab-content">
-                    <!-- Tab Thông tin -->
+                    
+                    <!-- Tab 1: Cài đặt thông tin -->
                     <div class="tab-pane fade show active" id="info">
-                        <div class="card border-0 shadow-sm rounded-4 p-4">
-                            <h4 class="fw-bold mb-4">Cài đặt tài khoản</h4>
-                            <form>
-                                <div class="row g-3">
+                        <div class="glass-card p-4 p-md-5">
+                            <h3 class="fw-bold mb-4">
+                                <i class="fa-solid fa-sliders text-info me-2"></i> Cài đặt hệ thống
+                            </h3>
+                            <form id="profileForm">
+                                <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label class="form-label">Họ và tên</label>
-                                        <input type="text" class="form-control rounded-3" value="Nguyễn Văn A">
+                                        <label class="form-label">Tên hiển thị</label>
+                                        <input type="text" id="inputName" class="form-control" value="Chưa cập nhật">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control rounded-3" value="user@example.com" readonly>
+                                        <label class="form-label">Gmail liên lạc</label>
+                                        <input type="email" class="form-control" value="thientu2011@gmail.com" readonly style="opacity: 0.6;">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Số điện thoại</label>
-                                        <input type="text" class="form-control rounded-3" value="0912345678">
+                                        <label class="form-label">Số hiệu liên lạc (SĐT)</label>
+                                        <input type="text" class="form-control" value="0917160061">
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label">Địa chỉ giao hàng</label>
-                                        <textarea class="form-control rounded-3">123 Đường ABC, Quận 1, TP.HCM</textarea>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Khu vực nhận hàng</label>
+                                        <input type="text" class="form-control" value="TP. Hồ Chí Minh, Việt Nam">
+                                    </div>
+                                    <div class="col-12 text-end">
+                                        <button type="button" class="btn btn-info px-5 fw-bold rounded-pill" onclick="alert('Cập nhật dữ liệu thành công!')">
+                                            LƯU THAY ĐỔI
+                                        </button>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-info mt-4 px-4 fw-bold">Lưu thay đổi</button>
                             </form>
                         </div>
                     </div>
 
-                    <!-- Tab Đơn hàng -->
+                    <!-- Tab 2: Danh sách đơn hàng -->
                     <div class="tab-pane fade" id="orders">
-                        <div class="card border-0 shadow-sm rounded-4 p-4">
-                            <h4 class="fw-bold mb-4">Lịch sử đơn hàng</h4>
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Mã đơn</th>
-                                            <th>Ngày mua</th>
-                                            <th>Sản phẩm</th>
-                                            <th>Tổng tiền</th>
-                                            <th>Trạng thái</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#PR1001</td>
-                                            <td>12/10/2023</td>
-                                            <td>Robot AI Gen 2</td>
-                                            <td class="fw-bold">150.000.000đ</td>
-                                            <td><span class="badge bg-success">Hoàn thành</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="glass-card p-4 p-md-5">
+                            <h3 class="fw-bold mb-4">
+                                <i class="fa-solid fa-box-open text-info me-2"></i> Đơn hàng Robot
+                            </h3>
+                            
+                            <!-- Đơn hàng 1 -->
+                            <div class="order-card d-flex align-items-center flex-wrap flex-md-nowrap">
+                                <img src="../z7325101041384_4bfa4537d4a87a237099cbc2e455a3bf.jpg" class="rounded me-3" style="width: 70px; height: 70px; object-fit: contain;">
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-1">Robot AI Gen 2 - <span class="text-info">#PR-9921</span></h6>
+                                    <p class="text-muted small mb-0">Ngày mua: 25/10/2023 | Trạng thái: <span class="text-success fw-bold">Đang giao</span></p>
+                                </div>
+                                <div class="text-end ms-auto mt-3 mt-md-0">
+                                    <h6 class="fw-bold text-info">150.000.000đ</h6>
+                                    <button class="btn btn-sm btn-outline-light rounded-pill px-3 py-0 small">Chi tiết</button>
+                                </div>
                             </div>
+
+                            <!-- Đơn hàng 2 -->
+                            <div class="order-card d-flex align-items-center flex-wrap flex-md-nowrap">
+                                <img src="../z7325109396184_2dcbcc9e6fc8aeb3864ab29d965bfc41.jpg" class="rounded me-3" style="width: 70px; height: 70px; object-fit: contain;">
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-1">Robot Hút Bụi X1 - <span class="text-info">#PR-8820</span></h6>
+                                    <p class="text-muted small mb-0">Ngày mua: 12/10/2023 | Trạng thái: <span class="text-warning fw-bold">Hoàn thành</span></p>
+                                </div>
+                                <div class="text-end ms-auto mt-3 mt-md-0">
+                                    <h6 class="fw-bold text-info">25.500.000đ</h6>
+                                    <button class="btn btn-sm btn-outline-light rounded-pill px-3 py-0 small">Chi tiết</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Khi trang tải xong
+        window.addEventListener('load', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            const profileName = document.getElementById('profile-name');
+            const inputName = document.getElementById('inputName');
+
+            if (currentUser) {
+                profileName.innerText = currentUser;
+                inputName.value = currentUser;
+            } else {
+                // Nếu chưa đăng nhập mà vào đây thì đẩy về login
+                window.location.href = "../login/index.html";
+            }
+        });
+
+        // Hàm đăng xuất
+        function logoutProfile() {
+            if(confirm("Bạn có muốn ngắt kết nối tài khoản này?")) {
+                localStorage.removeItem('currentUser');
+                window.location.href = "../index.html";
+            }
+        }
+    </script>
 </body>
 </html>
