@@ -81,10 +81,10 @@
 
         if ((email === correctEmail && password === correctPassword) || registeredUser) {
             localStorage.setItem('currentUser', registeredUser ? registeredUser.username : "Admin");
-            alert("⚡ Kết nối thành công! Đang vào hệ thống...");
+            alert("Kết nối thành công! Đang vào hệ thống...");
             window.location.href = "../index.html";
         } else {
-            alert("❌ Thông tin không chính xác. Vui lòng thử lại!");
+            alert("Thông tin không chính xác. Vui lòng thử lại!");
         }
     });
 
@@ -99,7 +99,6 @@ if (foundUser) {
     alert("Đăng nhập thành công!");
     window.location.href = "../index.html";
 }
-
 </script>
 
 

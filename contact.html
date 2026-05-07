@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ - PrimeRobotics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-uppercase" href="index.html">PRIME ROBOTICS</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html">Sản phẩm</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">Dịch vụ</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contact.html">Liên hệ</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-uppercase">Liên hệ & Hỗ trợ</h2>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h4 class="fw-bold mb-3">THÔNG TIN</h4>
+                <p class="text-muted">Hotline: 0917160061</p>
+                <p class="text-muted">Email: thientu25102011@gmail.com</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow-sm border-0 p-4">
+                    <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã gửi liên hệ!');">
+                        <input type="text" class="form-control mb-3" placeholder="Họ và tên" required>
+                        <input type="email" class="form-control mb-3" placeholder="Email" required>
+                        <textarea class="form-control mb-3" placeholder="Nội dung" style="height: 100px"></textarea>
+                        <button type="submit" class="btn btn-info w-100 fw-bold">GỬI</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="script-shared.js"></script>
+</body>
+</html>
